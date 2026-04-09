@@ -7,6 +7,7 @@ export class AuthService {
   constructor(private readonly userService:UserService){}
   async registerUser(registerUserDto:RegisterDto){ 
     const hashPassword = await bcrypt.hash(registerUserDto.password, 10)
-    return this.userService.createUser({...registerUserDto, password:hashPassword});
+    const user = await this.userService.createUser({...registerUserDto, password:hashPassword});
+    return user
   }
 }
