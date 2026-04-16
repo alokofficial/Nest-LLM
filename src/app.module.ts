@@ -9,10 +9,13 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     AuthModule,
     UserModule,
-    MongooseModule.forRoot(process.env.MONGODB_URI as string),
+    MongooseModule.forRoot(process.env.MONGODB_URI as string)
   ],
   controllers: [AppController],
   providers: [AppService],

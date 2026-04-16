@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { RegisterDto } from './dto/registerUser.dto';
-import bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { LoginUserDto } from './dto/loginUser.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -10,13 +10,19 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
   async registerUser(registerUserDto: RegisterDto) {
-    const hashPassword = await bcrypt.hash(registerUserDto.password, 10);
-    const user = await this.userService.createUser({
-      ...registerUserDto,
-      password: hashPassword,
-    });
+    const user = await this.userService.createUser(registerUserDto)
     const payload = {sub:user._id}
     const token = await this.jwtService.signAsync(payload);
+    return {
+      access_token:token
+    }
+  }
+
+  async loginUser(loginUserDto:LoginUserDto){
+    const user = await this.userService.loginUser(loginUserDto)
+    if(!user) return "Invalid credential"
+    const payload = {sub:user._id}
+    const token = await this.jwtService.signAsync(payload)
     return {
       access_token:token
     }
