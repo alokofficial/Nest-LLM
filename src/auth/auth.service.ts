@@ -27,4 +27,8 @@ export class AuthService {
       access_token:token
     }
   }
+
+  async userProfile(id:string){
+    return await this.userService.userProfile(id)
+  }
 }

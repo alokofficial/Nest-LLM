@@ -40,4 +40,7 @@ export class UserService {
       throw new ExceptionsHandler()
     }
   }
+  async userProfile(id:string){
+    return await this.userModel.findOne({_id:id})
+  }
 }
