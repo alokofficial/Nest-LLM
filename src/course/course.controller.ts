@@ -22,6 +22,11 @@ export class CourseController {
     return this.courseService.findOne(id);
   }
 
+  @Get('filter/:price')
+  filterByPrice(@Param('price') price: string) {
+    return this.courseService.findByPrice(+price);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
     return this.courseService.update(id, updateCourseDto);

@@ -26,6 +26,10 @@ export class CourseService {
     return this.courseModel.findById(id);
   }
 
+  findByPrice(price: number) {
+    return this.courseModel.find({ price: { $lte: price } });
+  }
+
   update(id: string, updateCourseDto: UpdateCourseDto) {
     return this.courseModel.findByIdAndUpdate(id, updateCourseDto, { new: true });
   }
