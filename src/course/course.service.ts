@@ -19,18 +19,18 @@ export class CourseService {
   }
 
   findAll() {
-    return `This action returns all course`;
+    return this.courseModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} course`;
+  findOne(id: string) {
+    return this.courseModel.findById(id);
   }
 
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course`;
+  update(id: string, updateCourseDto: UpdateCourseDto) {
+    return this.courseModel.findByIdAndUpdate(id, updateCourseDto, { new: true });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} course`;
+  remove(id: string) {
+    return this.courseModel.findByIdAndDelete(id);
   }
 }
