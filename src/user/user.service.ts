@@ -18,7 +18,7 @@ export class UserService {
         lname:registerUserDto.lname,
         email:registerUserDto.email,
         password:hashPassword,
-        role:"admin"
+        role:registerUserDto.role
       })
     }catch(err){
       const e = err as {code?:number}
